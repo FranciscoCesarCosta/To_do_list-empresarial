@@ -1,0 +1,19 @@
+meta {
+  name: 06 - Listar todas as tarefas (gerente)
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/tasks
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{gerenteToken}}
+}
+
+assert {
+  res.status: eq 200
+}

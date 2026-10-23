@@ -1,0 +1,26 @@
+meta {
+  name: 11 - Funcionario tenta criar tarefa (deve dar 403)
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{baseUrl}}/tasks
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{funcionarioToken}}
+}
+
+body:json {
+  {
+    "title": "Tarefa que nao deveria ser criada",
+    "assigned_to": "{{funcionarioUser}}"
+  }
+}
+
+assert {
+  res.status: eq 403
+}

@@ -1,0 +1,19 @@
+meta {
+  name: 08 - Buscar tarefa por id (funcionario)
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/tasks/{{taskId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{funcionarioToken}}
+}
+
+assert {
+  res.status: eq 200
+}

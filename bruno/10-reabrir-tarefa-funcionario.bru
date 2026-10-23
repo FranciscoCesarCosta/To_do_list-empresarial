@@ -1,0 +1,26 @@
+meta {
+  name: 10 - Marcar como pendente = false (funcionario)
+  type: http
+  seq: 10
+}
+
+patch {
+  url: {{baseUrl}}/tasks/{{taskId}}/completed
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{funcionarioToken}}
+}
+
+body:json {
+  {
+    "completed": false
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.completed: eq false
+}

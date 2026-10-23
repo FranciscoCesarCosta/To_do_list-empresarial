@@ -1,0 +1,26 @@
+meta {
+  name: 09 - Marcar como concluida = true (funcionario)
+  type: http
+  seq: 9
+}
+
+patch {
+  url: {{baseUrl}}/tasks/{{taskId}}/completed
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{funcionarioToken}}
+}
+
+body:json {
+  {
+    "completed": true
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.completed: eq true
+}

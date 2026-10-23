@@ -1,0 +1,19 @@
+meta {
+  name: 07 - Listar minhas tarefas (funcionario)
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/tasks
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{funcionarioToken}}
+}
+
+assert {
+  res.status: eq 200
+}

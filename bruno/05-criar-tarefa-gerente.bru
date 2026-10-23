@@ -1,0 +1,33 @@
+meta {
+  name: 05 - Criar tarefa (gerente)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/tasks
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{gerenteToken}}
+}
+
+body:json {
+  {
+    "title": "Enviar relatorio mensal",
+    "description": "Consolidar os numeros do mes e enviar ao financeiro",
+    "assigned_to": "{{funcionarioUser}}"
+  }
+}
+
+assert {
+  res.status: eq 201
+  res.body.completed: eq false
+}
+
+script:post-response {
+  // Guarda o id para as próximas requisições usarem {{taskId}}
+  bru.setEnvVar("taskId", res.body.id);
+}

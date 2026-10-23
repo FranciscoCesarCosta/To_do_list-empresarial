@@ -1,0 +1,24 @@
+{
+  "name": "to-do-list-empresarial",
+  "version": "1.0.0",
+  "description": "API REST de tarefas empresariais com autenticação OpenID Connect (Keycloak)",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20.6"
+  },
+  "scripts": {
+    "start": "node --env-file=.env src/server.js",
+    "dev": "node --watch --env-file=.env src/server.js",
+    "db:init": "node --env-file=.env src/init-db.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "jose": "^6.0.0",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.11"
+  }
+}

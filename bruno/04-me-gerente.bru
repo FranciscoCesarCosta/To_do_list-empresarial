@@ -1,0 +1,19 @@
+meta {
+  name: 04 - Quem sou eu (gerente)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{gerenteToken}}
+}
+
+assert {
+  res.status: eq 200
+}

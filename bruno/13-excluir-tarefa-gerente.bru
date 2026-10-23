@@ -1,0 +1,19 @@
+meta {
+  name: 13 - Excluir tarefa (gerente)
+  type: http
+  seq: 13
+}
+
+delete {
+  url: {{baseUrl}}/tasks/{{taskId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{gerenteToken}}
+}
+
+assert {
+  res.status: eq 204
+}

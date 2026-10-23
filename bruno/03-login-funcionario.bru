@@ -1,0 +1,27 @@
+meta {
+  name: 03 - Login funcionario (Keycloak)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{keycloakUrl}}/realms/{{realm}}/protocol/openid-connect/token
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  grant_type: password
+  client_id: {{clientId}}
+  username: {{funcionarioUser}}
+  password: {{funcionarioPassword}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+script:post-response {
+  // Guarda o access_token para as próximas requisições usarem {{funcionarioToken}}
+  bru.setEnvVar("funcionarioToken", res.body.access_token);
+}
