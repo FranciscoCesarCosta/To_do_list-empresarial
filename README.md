@@ -173,7 +173,9 @@ Acesse <http://localhost:8080> (a primeira inicialização pode levar um minuto)
 4. **Usuários:** em **Users > Add user**, crie por exemplo `gerente1` e `funcionario1`:
    - Preencha **Email, First name e Last name** (sem isso o login falha com *"Account is not fully set up"*)
    - Aba **Credentials > Set password**, com **Temporary: Off**
-   - Aba **Role mapping > Assign role**: `gerente` para o gerente e `funcionario` para o funcionário
+   - Aba **Role mapping > Assign role**: `gerente` para o gerente e `funcionario` para o funcionário. Na janela de atribuição, mude o filtro para **Filter by realm roles** (são roles do realm, não do client).
+
+> **Atenção ao role:** o passo mais fácil de esquecer é o **Role mapping**. Sem ele o login funciona, mas a API responde `403` em `/tasks`, porque o token não traz o perfil. Confira na aba **Role mapping** do usuário se `gerente` (ou `funcionario`) aparece na lista. **Os roles ficam gravados dentro do token no momento do login**: se você atribuir o role depois de já ter feito login, rode o login de novo (requisições 02 e 03 no Bruno) para gerar um token novo.
 
 Os nomes `gerente1` e `funcionario1` são só sugestão. Se usar outros, ajuste `gerenteUser` e `funcionarioUser` no ambiente do Bruno.
 
@@ -335,4 +337,4 @@ Cobertura: autenticação (401), autorização por perfil (403), validação de 
 | API responde `401` e o log mostra `ERR_JWT_CLAIM_VALIDATION_FAILED` | O `iss` do token difere do `KEYCLOAK_ISSUER`. Use `localhost` nos dois lugares (`127.0.0.1` gera um issuer diferente). |
 | API responde `401` e o log mostra `ERR_JWT_EXPIRED` | Token expirado. Rode de novo a requisição de login. |
 | API responde `401` e o log mostra erro de rede (`fetch failed`, timeout) | A API não está alcançando o Keycloak. Confirme que o container está de pé (`docker compose ps`). |
-| `403` mesmo com token válido | O usuário não tem o perfil. Rode a requisição **04** (`/me`) e confira `roles`; atribua o role em **Role mapping**. |
+| `403` mesmo com token válido | O token não traz o perfil. Rode a requisição **04** (`/me`) e confira `roles`: se faltar `gerente` ou `funcionario`, atribua o role em **Users > (usuário) > Role mapping > Assign role > Filter by realm roles** e **gere um token novo** rodando o login (02 ou 03) outra vez. Token antigo não ganha o role. |

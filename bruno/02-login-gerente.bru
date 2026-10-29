@@ -23,5 +23,5 @@ assert {
 
 script:post-response {
   // Guarda o access_token para as próximas requisições usarem {{gerenteToken}}
-  bru.setEnvVar("gerenteToken", res.body.access_token);
+  bru.setVar("gerenteToken", res.body.access_token);
 }

@@ -29,5 +29,5 @@ assert {
 
 script:post-response {
   // Guarda o id para as próximas requisições usarem {{taskId}}
-  bru.setEnvVar("taskId", res.body.id);
+  bru.setVar("taskId", res.body.id);
 }
