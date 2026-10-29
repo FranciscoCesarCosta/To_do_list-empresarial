@@ -101,6 +101,8 @@ Respostas de erro:
 ├── test/
 │   └── api.test.js   # Testes automatizados
 ├── bruno/            # Coleção do Bruno (abrir esta pasta no Bruno)
+├── keycloak/
+│   └── realm-empresa.json  # Realm pronto (roles + client), importado automaticamente
 ├── docker-compose.yml  # Sobe o Keycloak local
 ├── .env.example      # Modelo de configuração (copie para .env)
 └── package.json
@@ -155,6 +157,10 @@ Defina em `.env` uma senha para o admin do Keycloak (`KEYCLOAK_ADMIN_PASSWORD`) 
 ```bash
 docker compose up -d
 ```
+
+> **Atalho (import automático):** se existir o arquivo `keycloak/realm-empresa.json`, o realm `empresa`, com os roles `gerente` e `funcionario` e o client `todo-api`, é importado sozinho na primeira vez que o container sobe. Nesse caso, **pule os passos 1 a 3** abaixo e crie apenas os usuários (passo 4). O arquivo não contém usuários nem senhas. A importação só acontece se o realm ainda não existir: ela nunca sobrescreve um realm que você já tenha configurado.
+>
+> Para gerar ou atualizar esse arquivo a partir de um Keycloak já configurado: no realm `empresa`, vá em **Realm settings > Action > Partial export**, ligue **Include groups and roles** e **Include clients**, clique em **Export** e salve o arquivo como `keycloak/realm-empresa.json`.
 
 Acesse <http://localhost:8080> (a primeira inicialização pode levar um minuto) e entre com o usuário `admin` e a senha que você definiu. Depois configure:
 
